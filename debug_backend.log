@@ -1,0 +1,120 @@
+INFO:     Started server process [25364]
+INFO:     Waiting for application startup.
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: XAUINR=X"}}}
+$XAUINR=X: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+
+1 Failed download:
+['XAUINR=X']: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+XAUINR=X returned empty or failed to normalize
+C:\Users\sumit\Downloads\Desktop\mp-code\gold_app\model.py:183: UserWarning: Predicted price (\u20b91566.86) vs input price (\u20b9124.61) ratio is 12.57x - possible scale mismatch between training and live data
+  warnings.warn(
+\u26a0\ufe0f MISMATCH: Predicted price (\u20b91566.86) inconsistent with change % (2.6625%)
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+INFO:     127.0.0.1:52853 - "WebSocket /ws/snapshots" [accepted]
+INFO:     connection open
+INFO:     connection closed
+INFO:     127.0.0.1:62221 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62222 - "GET /api/v1/snapshot/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62225 - "GET /api/v1/snapshot/history?limit=30 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52967 - "WebSocket /ws/snapshots" [accepted]
+INFO:     connection open
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: XAUINR=X"}}}
+$XAUINR=X: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+
+1 Failed download:
+['XAUINR=X']: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+XAUINR=X returned empty or failed to normalize
+C:\Users\sumit\Downloads\Desktop\mp-code\gold_app\model.py:183: UserWarning: Predicted price (\u20b91557.34) vs input price (\u20b9124.61) ratio is 12.50x - possible scale mismatch between training and live data
+  warnings.warn(
+\u26a0\ufe0f MISMATCH: Predicted price (\u20b91557.34) inconsistent with change % (2.6438%)
+INFO:     127.0.0.1:58767 - "GET /api/v1/snapshot/live?force_retrain=false HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\sumit\AppData\Roaming\Python\Python313\site-packages\uvicorn\protocols\http\h11_impl.py", line 415, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sumit\AppData\Roaming\Python\Python313\site-packages\uvicorn\middleware\proxy_headers.py", line 56, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sumit\AppData\Roaming\Python\Python313\site-packages\fastapi\applications.py", line 1159, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\sumit\AppData\Roaming\Python\Python313\site-packages\starlette\applications.py", line 90, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\sumit\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\sumit\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\sumit\AppData\Roaming\Python\Python313\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\sumit\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\sumit\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\sumit\AppData\Roaming\Python\Python313\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\sumit\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\sumit\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\sumit\AppData\Roaming\Python\Python313\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\sumit\AppData\Roaming\Python\Python313\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\sumit\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\sumit\AppData\Roaming\Python\Python313\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\sumit\AppData\Roaming\Python\Python313\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\sumit\AppData\Roaming\Python\Python313\site-packages\fastapi\routing.py", line 674, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\sumit\AppData\Roaming\Python\Python313\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sumit\AppData\Roaming\Python\Python313\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sumit\AppData\Roaming\Python\Python313\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sumit\AppData\Roaming\Python\Python313\site-packages\anyio\_backends\_asyncio.py", line 2470, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\sumit\AppData\Roaming\Python\Python313\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\sumit\Downloads\Desktop\mp-code\gold_app\backend.py", line 149, in get_live_snapshot
+    _create_background_task(_publish_snapshot(snapshot))
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sumit\Downloads\Desktop\mp-code\gold_app\backend.py", line 104, in _create_background_task
+    task = asyncio.create_task(coro)
+  File "C:\Python313\Lib\asyncio\tasks.py", line 407, in create_task
+    loop = events.get_running_loop()
+RuntimeError: no running event loop
+$XAUINR=X: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+
+1 Failed download:
+['XAUINR=X']: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+XAUINR=X returned empty or failed to normalize
+C:\Users\sumit\Downloads\Desktop\mp-code\gold_app\model.py:183: UserWarning: Predicted price (\u20b91555.75) vs input price (\u20b9124.61) ratio is 12.48x - possible scale mismatch between training and live data
+  warnings.warn(
+\u26a0\ufe0f MISMATCH: Predicted price (\u20b91555.75) inconsistent with change % (2.6407%)
+INFO:     connection closed
+INFO:     127.0.0.1:52136 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52137 - "GET /api/v1/snapshot/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61163 - "GET /api/v1/snapshot/history?limit=30 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60663 - "WebSocket /ws/snapshots" [accepted]
+INFO:     connection open
