@@ -14,6 +14,7 @@ from streamlit_autorefresh import st_autorefresh
 BACKEND_URL = os.getenv("GOLD_BACKEND_URL", "http://127.0.0.1:8001")
 AUTO_REFRESH_MS = 15 * 1000
 REQUEST_TIMEOUT = 120
+ASSET_NAME = "Nippon India ETF Gold BeES"
 PREDICTED_PRICE_COL = "Predicted Price"
 PREDICTED_CHANGE_COL = "Predicted Change %"
 MODEL_SENTIMENT_LABEL_COL = "Model Sentiment Label"
@@ -21,7 +22,7 @@ PLOT_TRANSPARENT = "rgba(0,0,0,0)"
 PLOT_GRID = "rgba(180,155,80,0.10)"
 PLOT_AXIS = "rgba(180,155,80,0.20)"
 
-st.set_page_config(page_title="Gold Forecast Dashboard", page_icon="🪙", layout="wide")
+st.set_page_config(page_title=f"{ASSET_NAME} Forecast Dashboard", page_icon="🪙", layout="wide")
 
 INIT_CSS = """
 <style>
@@ -448,11 +449,11 @@ if articles.empty:
 
 # ─── Hero ─────────────────────────────────────────────────────────────────────
 st.markdown(
-    """
+    f"""
     <div class="hero">
-        <div class="hero-label">🪙 Market Intelligence</div>
-        <h1>Gold Forecast Dashboard</h1>
-        <p>Predictions and analytics served by the FastAPI backend — live via WebSocket</p>
+        <div class="hero-label">🪙 ETF Market Intelligence</div>
+        <h1>{ASSET_NAME} Prediction Dashboard</h1>
+        <p>Live price prediction, sentiment, and breakdown for {ASSET_NAME}</p>
     </div>
     """,
     unsafe_allow_html=True,
@@ -502,7 +503,7 @@ chg_sign  = "+" if pred_chg >= 0 else ""
 with c1:
     st.markdown(
         f"""<div class="metric-card">
-            <div class="metric-label">Latest Market Close</div>
+            <div class="metric-label">Latest {ASSET_NAME} Close</div>
             <div class="metric-value gold">₹{latest_close:,.2f}</div>
             <div class="metric-note">{market_note}</div>
         </div>""",
@@ -514,7 +515,7 @@ with c2:
         f"""<div class="metric-card">
             <div class="metric-label">Predicted Avg Price</div>
             <div class="metric-value">₹{pred_price:,.2f}</div>
-            <div class="metric-note">{len(articles)} articles sampled</div>
+            <div class="metric-note">{len(articles)} articles sampled for {ASSET_NAME}</div>
         </div>""",
         unsafe_allow_html=True,
     )
@@ -522,9 +523,9 @@ with c2:
 with c3:
     st.markdown(
         f"""<div class="metric-card">
-            <div class="metric-label">Predicted Change</div>
+            <div class="metric-label">Predicted Change for {ASSET_NAME}</div>
             <div class="metric-value {chg_class}">{chg_sign}{pred_chg:.4f}%</div>
-            <div class="metric-note">Model-driven aggregate</div>
+            <div class="metric-note">Model-driven aggregate change</div>
         </div>""",
         unsafe_allow_html=True,
     )
@@ -603,11 +604,11 @@ with status_col:
         f"""<div class="status-card">
             <h4>Current Data Status</h4>
             <div class="status-row">
-                <span class="key">News feed</span>
+                <span class="key">{ASSET_NAME} news feed</span>
                 <span class="val">{news_status}</span>
             </div>
             <div class="status-row">
-                <span class="key">Market feed</span>
+                <span class="key">{ASSET_NAME} market feed</span>
                 <span class="val">{market_status}</span>
             </div>
             <div class="status-row">
@@ -632,7 +633,7 @@ with status_col:
 
 
 # ─── Latest Reports ───────────────────────────────────────────────────────────
-st.markdown('<div class="section-title">Latest Reports</div>', unsafe_allow_html=True)
+st.markdown(f'<div class="section-title">Latest Reports for {ASSET_NAME}</div>', unsafe_allow_html=True)
 
 if not articles.empty:
     rf = articles.copy()
@@ -659,7 +660,7 @@ if not articles.empty:
 
 
 # ─── Prediction Breakdown ─────────────────────────────────────────────────────
-st.markdown('<div class="section-title">Prediction Breakdown</div>', unsafe_allow_html=True)
+st.markdown(f'<div class="section-title">Prediction Breakdown for {ASSET_NAME}</div>', unsafe_allow_html=True)
 
 pie_col, bar_col = st.columns(2)
 
@@ -695,7 +696,7 @@ with pie_col:
         ))
         pie_fig.update_layout(
             **_common_layout,
-            title={"text": "Sentiment Split", "font": {"size": 14, "color": GOLD_COLOR}},
+            title={"text": f"Sentiment Split for {ASSET_NAME}", "font": {"size": 14, "color": GOLD_COLOR}},
             legend={"bgcolor": PLOT_TRANSPARENT, "font": {"size": 13}},
         )
         st.plotly_chart(pie_fig, use_container_width=True)
@@ -722,7 +723,7 @@ with bar_col:
         ))
         bar_fig.update_layout(
             **_common_layout,
-            title={"text": "Top Prediction Signals", "font": {"size": 14, "color": GOLD_COLOR}},
+            title={"text": f"Top Prediction Signals for {ASSET_NAME}", "font": {"size": 14, "color": GOLD_COLOR}},
             xaxis={
                 "gridcolor": PLOT_GRID,
                 "ticksuffix": "%",
@@ -738,7 +739,7 @@ with bar_col:
 
 
 # ─── Historical Snapshot Store ────────────────────────────────────────────────
-st.markdown('<div class="section-title">Historical Snapshot Store</div>', unsafe_allow_html=True)
+st.markdown(f'<div class="section-title">Historical Snapshot Store for {ASSET_NAME}</div>', unsafe_allow_html=True)
 
 backend_history = fetch_snapshot_history(limit=30)
 history_frame = pd.DataFrame(backend_history)
