@@ -20,10 +20,21 @@ def parse_change_percent(value: object) -> float:
     return float(text.replace(",", ""))
 
 
-def change_to_sentiment(change_value: float) -> int:
-    if change_value > 0:
+# Dead-band threshold: changes within ±SENTIMENT_THRESHOLD % are treated as
+# Neutral. This prevents Ridge's tiny predicted changes (e.g. -0.001 %) from
+# all mapping to Bearish, which caused the 100 % Bearish pie-chart bug.
+SENTIMENT_THRESHOLD = 0.05  # percent
+
+
+def change_to_sentiment(change_value: float, threshold: float = SENTIMENT_THRESHOLD) -> int:
+    """Map a predicted % change to a sentiment integer (-1 / 0 / +1).
+
+    Values within ±threshold are treated as Neutral (0) to avoid the
+    degenerate case where all micro-negative predictions collapse to Bearish.
+    """
+    if change_value > threshold:
         return 1
-    if change_value < 0:
+    if change_value < -threshold:
         return -1
     return 0
 

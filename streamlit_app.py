@@ -342,6 +342,11 @@ if not backend_ok:
     st.info("Start API server: uvicorn gold_app.backend:app --host 0.0.0.0 --port 8001")
     st.stop()
 
+# ─── Auto-refresh (smooth Streamlit rerun — no browser reload) ────────────────
+# st_autorefresh triggers a Streamlit script rerun (updates widgets in-place)
+# rather than a full browser page reload, so scroll position is preserved.
+st_autorefresh(interval=AUTO_REFRESH_MS, key="auto_refresh")
+
 snapshot = fetch_latest_snapshot()
 summary = snapshot.get("summary", {})
 market_features = snapshot.get("market_features", {})
@@ -421,7 +426,10 @@ components.html(
                     const payload = JSON.parse(event.data);
                     const nextId = payload && payload.created_at ? String(payload.created_at) : "";
                     if (nextId && nextId !== currentId) {{
-                        window.parent.location.reload();
+                        // Do NOT hard-reload the browser — st_autorefresh handles
+                        // smooth Streamlit reruns at the configured interval.
+                        // Just surface a visual hint that fresh data is waiting.
+                        setStatus("ws-connected", "Live: New data available ↻");
                     }}
                 }} catch (e) {{}}
             }};

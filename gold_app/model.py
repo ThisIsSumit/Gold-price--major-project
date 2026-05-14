@@ -164,6 +164,27 @@ def predict_live(bundle: ModelBundle, live_frame: pd.DataFrame) -> pd.DataFrame:
     predictions = bundle.regressor.predict(frame[["News", *FEATURE_COLUMNS]])
     class_predictions = bundle.classifier.predict(frame[["News", *FEATURE_COLUMNS]])
 
+    # ── Degenerate-classifier guard ──────────────────────────────────────────
+    # The Logistic classifier was trained on ~248 rows. Live Google News text
+    # falls outside the training vocabulary, so the classifier often collapses
+    # to predicting a single class (always -1 = Bearish).
+    # Detection: if fewer than 3 classes appear OR any one class dominates
+    # more than 90 % of predictions, the output is considered degenerate and
+    # we fall back to the regressor's Predicted Change % with a dead-band
+    # threshold (defined in utils.SENTIMENT_THRESHOLD).
+    unique_classes, class_counts = np.unique(class_predictions, return_counts=True)
+    is_degenerate = (
+        len(unique_classes) < 2
+        or float(class_counts.max()) / len(class_predictions) > 0.90
+    )
+    if is_degenerate:
+        class_predictions = np.array(
+            [change_to_sentiment(float(v)) for v in predictions[:, 1]],
+            dtype=int,
+        )
+    # ─────────────────────────────────────────────────────────────────────────
+
+
     result = frame.copy()
     result["Raw Predicted Price"] = predictions[:, 0]
     result["Predicted Change %"] = predictions[:, 1]
